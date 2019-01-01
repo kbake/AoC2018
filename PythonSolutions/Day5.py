@@ -31,28 +31,13 @@ def remove_reactions(polymer):
     i += 1
   return new_polymer
 
-for polymer in test_input.splitlines():
-  #print(polymer, "has reactions?", has_reactions(polymer))
+for polymer in main_input.splitlines():
   while has_reactions(polymer):
     polymer = remove_reactions(polymer)
-    #print("updated polymer", polymer)
   print("units:", len(polymer))
 
 # Part 2
 test2_input = "dabAcCaCBAcCcaDA"
-print()
-# Turns out this isn't quite what I want...
-def get_unit_types(polymer):
-  unit_types = []
-  for i in range(1, len(polymer)):
-    prev_char = polymer[i-1]
-    cur_char = polymer[i]
-    if prev_char.lower() == cur_char.lower():
-      if prev_char.isupper() != cur_char.isupper():
-        unit_type = prev_char + cur_char
-        if unit_type not in unit_types:
-          unit_types.append(unit_type)
-  return unit_types
 
 def get_all_units(polymer):
   units = []
@@ -65,10 +50,8 @@ units = get_all_units(main_input)
 unit_values = {}
 for unit in units:
   polymer = ''.join(c for c in main_input if  c not in unit + unit.upper())
-  #print(unit + unit.upper(), polymer)
   while has_reactions(polymer):
     polymer = remove_reactions(polymer)
   unit_values[len(polymer)] = unit + unit.upper()
-  #print(unit_values[len(polymer)])
 min_ind = min(unit_values)
 print("min:", min_ind, unit_values[min_ind])
