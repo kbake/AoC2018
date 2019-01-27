@@ -1109,7 +1109,7 @@ class Schedule:
 
 cur_guard = 0
 guards = {}
-for line in test_input.splitlines():
+for line in puzzle_input.splitlines():
 	split = line.split(']')
 	date_time = split[0][1:]
 	action = ""
@@ -1150,17 +1150,18 @@ def figure_common_minute(guard_schedule):
 	last_time = datetime.datetime.now()
 	is_asleep = False
 	for schedule in guard_schedule:
-		print(schedule.action, str(schedule.date_time))
+		#print(schedule.action, str(schedule.date_time))
 		if schedule.action == "falls asleep":
 			is_asleep = True
 			last_time = schedule.date_time
 		elif schedule.action == 'wakes up':
 			if is_asleep:
-				to_reach = schedule.date_time.minute-1
+				to_reach = schedule.date_time.minute
 				if last_time.day < schedule.date_time.day:
+					print("wonky one", last_time, schedule.date_time)
 					to_reach = 59
-				while last_time.minute <= to_reach:
-					print(last_time.minute, to_reach)
+				while last_time.minute < to_reach:
+					#print(last_time.minute, to_reach)
 					if last_time.minute not in mins:
 						mins[last_time.minute] = 1
 					else:
